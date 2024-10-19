@@ -13,23 +13,23 @@ const mealSchema = new Schema({
     },
     totalCalories: {
         type: Number,
-        default: 0, // Default value
+        default: 0,
     },
     totalProtein: {
         type: Number,
-        default: 0, // Default value
+        default: 0,
     },
     totalFats: {
         type: Number,
-        default: 0, // Default value
+        default: 0,
     },
     totalCarbs: {
         type: Number,
-        default: 0, // Default value
+        default: 0,
     },
     totalMeals: {
         type: Number,
-        default: 0, // Default value
+        default: 0,
     },
 }, { timestamps: true });
 

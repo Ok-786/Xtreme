@@ -138,7 +138,38 @@ const mealServices = {
         return await mealModel.findOneAndUpdate({ _id: id }, data, { new: true });
     },
     getAll: async () => {
-        return await mealModel.find();
+        return await mealModel.aggregate([
+            {
+                $lookup: {
+                    from: 'recipes',
+                    localField: '_id',
+                    foreignField: 'mealId',
+                    as: 'recipes'
+                }
+            },
+            {
+                $project: {
+                    mealName: 1,
+                    mealType: 1,
+                    totalCalories: 1,
+                    totalProtein: 1,
+                    totalFats: 1,
+                    totalCarbs: 1,
+                    totalMeals: 1,
+                    recipes: {
+                        recipeName: 1,
+                        calories: 1,
+                        protein: 1,
+                        fats: 1,
+                        carbs: 1,
+                        ingredients: 1,
+                        steps: 1,
+                        description: 1,
+                        recipeImage: 1
+                    }
+                }
+            }
+        ]);
     },
     getById: async (id) => {
         return await mealModel.findById(id);

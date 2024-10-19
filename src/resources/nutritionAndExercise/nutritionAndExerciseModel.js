@@ -4,76 +4,76 @@ const Schema = mongoose.Schema;
 const nutritionAndExerciseHabitsSchema = new Schema({
     clientId: {
         type: Schema.Types.ObjectId,
-        ref: 'Client', // Assuming you have a 'Client' model
-        required: true,
+        ref: 'Client',
+
     },
     currentPhysicalActivityLevel: {
         type: String,
-        required: true,
+
     },
     timesEatPerDay: {
         type: Number,
-        required: true,
+
     },
     currentDietType: {
         type: String,
-        required: true,
+
     },
     daysPerWeekForFitness: {
         type: Number,
-        required: true,
+
     },
     involvedInAerobicExercise: {
-        type: Boolean,
-        required: true,
+        type: String,
+
     },
     liftingWeights: {
-        type: Boolean,
-        required: true,
+        type: String,
+
     },
     exerciseTimeCommitment: {
         type: String,
-        required: true, // Example: "1 hour per day"
+
     },
     motivationToGetInShape: {
         type: String,
-        required: true,
+
     },
     foodsToAvoid: {
         type: String,
-        required: false, // Optional field
+        required: false,
     },
     foodAllergies: {
         type: String,
-        required: false, // Optional field
+        required: false,
     },
     dietaryRestrictions: {
         type: String,
-        required: false, // Optional field
+        required: false,
     },
     injuriesThatCanBeWorsenedByExercise: {
         type: String,
-        required: false, // Optional field
+        required: false,
     },
     needMedicalClearance: {
-        type: Boolean,
-        required: true,
+        type: String,
+
     },
     healthConditionsPreventingExercise: {
         type: String,
-        required: false, // Optional field
+        required: false,
     },
     prescribedMedicationsOrSupplements: {
         type: String,
-        required: false, // Optional field
+        required: false,
     },
     wouldLikeToExercise: {
-        type: Boolean,
-        required: true,
+        type: String,
+
     },
     equipmentForExercising: {
         type: String,
-        required: false, // Optional field
+        required: false,
     },
 }, { timestamps: true });
 

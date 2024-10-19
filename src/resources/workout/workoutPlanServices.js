@@ -5,16 +5,16 @@ const workoutPlanServices = {
     create: async (data) => {
         return await workoutPlanModel.create(data);
     },
-    getAllByClient: async (clientId, adminId) => {
+    getAllByClient: async (clientId, date) => {
         try {
             let matchStage;
-
             if (clientId) {
                 matchStage = { clientId: new mongoose.Types.ObjectId(clientId) };
-            } else if (adminId) {
-                matchStage = { createdBy: new mongoose.Types.ObjectId(adminId) };
+            } else if (date) {
+                matchStage = { date: date };
+
             } else {
-                throw new Error('Either clientId or adminId must be provided');
+                throw new Error('Either clientId or date must be provided');
             }
 
             const workoutPlans = await workoutPlanModel.aggregate([
@@ -106,10 +106,9 @@ const workoutPlanServices = {
                 }
             ]);
 
-            // Debugging output
-            console.log('Workout Plans:', workoutPlans);
-            console.log('Admin Details:', workoutPlans.map(plan => plan.adminDetails));
-            console.log('Exercises:', workoutPlans.map(plan => plan.exercises));
+            // console.log('Workout Plans:', workoutPlans);
+            //            console.log('Admin Details:', workoutPlans.map(plan => plan.adminDetails));
+            //          console.log('Exercises:', workoutPlans.map(plan => plan.exercises));
 
             return workoutPlans;
         } catch (error) {

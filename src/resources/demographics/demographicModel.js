@@ -4,24 +4,24 @@ const Schema = mongoose.Schema;
 const demographicsSchema = new Schema({
     clientId: {
         type: Schema.Types.ObjectId,
-        ref: 'Client', required: true,
+        ref: 'Client',
     },
     gender: {
         type: String,
         enum: ['Male', 'Female', 'Other'],
-        required: true,
+
     },
     age: {
         type: Number,
-        required: true,
+
     },
     height: {
         type: Number,
-        required: true,
+
     },
     weight: {
         type: Number,
-        required: true,
+
     },
 }, { timestamps: true });
 

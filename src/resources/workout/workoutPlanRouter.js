@@ -13,7 +13,7 @@ workoutPlanRouter
     .delete(workoutPlanController.deleteWorkoutPlan);
 
 workoutPlanRouter
-    .route('/client/:clientId')
-    .get(workoutPlanController.getAllWorkoutPlansByClient);
+    .route('/client/')
+    .post(workoutPlanController.getAllWorkoutPlansByClient);
 
 module.exports = workoutPlanRouter;

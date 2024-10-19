@@ -19,7 +19,7 @@ const recipeSchema = Joi.object({
             instruction: Joi.string().required(),
         })
     ).min(1).required(),
-    description: Joi.string().required(),
+    description: Joi.string().optional(),
     recipeImage: Joi.string().optional(),
 });
 

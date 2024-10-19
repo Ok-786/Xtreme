@@ -44,11 +44,11 @@ const recipeSchema = new Schema({
     }],
     description: {
         type: String,
-        required: true,
+
     },
     recipeImage: {
         type: String,
-        required: false,
+
     },
     mealId: {
         type: Schema.Types.ObjectId,

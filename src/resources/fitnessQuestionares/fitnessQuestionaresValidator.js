@@ -14,11 +14,7 @@ const createFitnessQuestionsValidator = (req, res, next) => {
         adequateSleepPerNight: Joi.string().required(),
         medicalOrHealthConditions: Joi.string().required(),
         injuriesOrPhysicalLimitations: Joi.string().required(),
-        goals: Joi.object({
-            weightLoss: Joi.boolean(),
-            muscleGain: Joi.boolean(),
-            overallHealthImprovement: Joi.boolean(),
-        }).required(),
+        goals: Joi.string().required(),
         idealBodyWeight: Joi.number().required(),
         healthAndFitnessGoals: Joi.string().required(),
         commitmentLevelToGoals: Joi.string().required(),
@@ -37,6 +33,7 @@ const createFitnessQuestionsValidator = (req, res, next) => {
 
     next();
 };
+
 
 const combinedSchema = Joi.object({
     // Demographics validation
@@ -58,11 +55,7 @@ const combinedSchema = Joi.object({
     adequateSleepPerNight: Joi.string().required(),
     medicalOrHealthConditions: Joi.string().required(),
     injuriesOrPhysicalLimitations: Joi.string().required(),
-    goals: Joi.object({
-        weightLoss: Joi.boolean(),
-        muscleGain: Joi.boolean(),
-        overallHealthImprovement: Joi.boolean(),
-    }).required(),
+    goals: Joi.string().required(),
     idealBodyWeight: Joi.number().required(),
     healthAndFitnessGoals: Joi.string().required(),
     commitmentLevelToGoals: Joi.string().required(),
@@ -76,20 +69,23 @@ const combinedSchema = Joi.object({
     timesEatPerDay: Joi.number().required(),
     currentDietType: Joi.string().required(),
     daysPerWeekForFitness: Joi.number().required(),
-    involvedInAerobicExercise: Joi.boolean().required(),
-    liftingWeights: Joi.boolean().required(),
+    involvedInAerobicExercise: Joi.string().required(), // Changed to string
+    liftingWeights: Joi.string().required(), // Changed to string
     exerciseTimeCommitment: Joi.string().required(),
     motivationToGetInShape: Joi.string().required(),
     foodsToAvoid: Joi.string().optional(),
     foodAllergies: Joi.string().optional(),
     dietaryRestrictions: Joi.string().optional(),
     injuriesThatCanBeWorsenedByExercise: Joi.string().optional(),
-    needMedicalClearance: Joi.boolean().required(),
+    needMedicalClearance: Joi.string().required(), // Changed to string
     healthConditionsPreventingExercise: Joi.string().optional(),
     prescribedMedicationsOrSupplements: Joi.string().optional(),
-    wouldLikeToExercise: Joi.boolean().required(),
+    wouldLikeToExercise: Joi.string().required(), // Changed to string
     equipmentForExercising: Joi.string().optional(),
 });
+
+module.exports = combinedSchema;
+;
 module.exports = {
     createFitnessQuestionsValidator,
     combinedSchema

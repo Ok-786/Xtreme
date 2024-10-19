@@ -20,22 +20,7 @@ const exerciseSchema = new Schema(
             type: String,
             required: false,
         },
-        intensity: {
-            type: String, // e.g., "Low", "Medium", "High"
-            required: true,
-        },
-        duration: {
-            type: Number, // Duration in minutes or seconds
-            required: true,
-        },
-        sets: {
-            type: Number, // Number of sets
-            required: true,
-        },
-        reps: {
-            type: Number, // Number of repetitions
-            required: true,
-        },
+
         videoLink: {
             type: String,
             required: false,

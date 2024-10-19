@@ -21,14 +21,30 @@ const workoutPlanSchema = new Schema(
             enum: ['Weekly', 'Monthly', 'Daily'],
 
         },
-
         exercises: [{
             exerciseId: {
                 type: Schema.Types.ObjectId,
                 ref: 'Exercise',
-                required: true, // Always required for workout plans
+                required: true,
             },
-        }],
+            intensity: {
+                type: String,
+                required: true,
+            },
+            duration: {
+                type: Number,
+                required: true,
+            },
+            sets: {
+                type: Number,
+                required: true,
+            },
+            reps: {
+                type: Number,
+                required: true,
+            },
+        }
+        ],
         createdBy: {
             type: Schema.Types.ObjectId,
             ref: 'AdminUser',

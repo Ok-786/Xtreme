@@ -28,8 +28,10 @@ const workoutPlanController = {
     }),
 
     getAllWorkoutPlansByClient: asyncHandler(async (req, res) => {
-        const { clientId } = req.params;
-        const workoutPlans = await workoutPlanServices.getAllByClient(clientId);
+        const { clientId, date } = req.body;
+        // console.log("clientId", clientId)
+        // console.log("date", date)
+        const workoutPlans = await workoutPlanServices.getAllByClient(clientId, date);
         return await sendResponse(
             res,
             responseStatusCodes.OK,
