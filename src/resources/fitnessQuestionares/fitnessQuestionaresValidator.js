@@ -6,7 +6,7 @@ const createFitnessQuestionsValidator = (req, res, next) => {
         currentPhysicalActivityLevel: Joi.string().required(),
         howOftenEngageInPhysicalActivity: Joi.string().required(),
         preferredTypeOfPhysicalActivity: Joi.string().required(),
-        daysPerWeekExercise: Joi.number().required(),
+        daysPerWeekExercise: Joi.string().required(),
         currentDiet: Joi.string().required(),
         howOftenEatUnhealthyFood: Joi.string().required(),
         waterIntakePerDay: Joi.string().required(),
@@ -15,7 +15,7 @@ const createFitnessQuestionsValidator = (req, res, next) => {
         medicalOrHealthConditions: Joi.string().required(),
         injuriesOrPhysicalLimitations: Joi.string().required(),
         goals: Joi.string().required(),
-        idealBodyWeight: Joi.number().required(),
+        idealBodyWeight: Joi.string().required(),
         healthAndFitnessGoals: Joi.string().required(),
         commitmentLevelToGoals: Joi.string().required(),
         currentStressLevel: Joi.string().required(),
@@ -39,15 +39,15 @@ const combinedSchema = Joi.object({
     // Demographics validation
     clientId: Joi.string().length(24).required(),
     gender: Joi.string().valid('Male', 'Female', 'Other').required(),
-    age: Joi.number().required(),
-    height: Joi.number().required(),
-    weight: Joi.number().required(),
+    age: Joi.string().required(),
+    height: Joi.string().required(),
+    weight: Joi.string().required(),
 
     // Fitness question validation
     currentPhysicalActivityLevel: Joi.string().required(),
     howOftenEngageInPhysicalActivity: Joi.string().required(),
     preferredTypeOfPhysicalActivity: Joi.string().required(),
-    daysPerWeekExercise: Joi.number().required(),
+    daysPerWeekExercise: Joi.string().required(),
     currentDiet: Joi.string().required(),
     howOftenEatUnhealthyFood: Joi.string().required(),
     waterIntakePerDay: Joi.string().required(),
@@ -56,7 +56,7 @@ const combinedSchema = Joi.object({
     medicalOrHealthConditions: Joi.string().required(),
     injuriesOrPhysicalLimitations: Joi.string().required(),
     goals: Joi.string().required(),
-    idealBodyWeight: Joi.number().required(),
+    idealBodyWeight: Joi.string().required(),
     healthAndFitnessGoals: Joi.string().required(),
     commitmentLevelToGoals: Joi.string().required(),
     currentStressLevel: Joi.string().required(),
@@ -66,9 +66,9 @@ const combinedSchema = Joi.object({
     gymAccess: Joi.string().required(),
 
     // Nutrition and exercise habits validation
-    timesEatPerDay: Joi.number().required(),
+    timesEatPerDay: Joi.string().required(),
     currentDietType: Joi.string().required(),
-    daysPerWeekForFitness: Joi.number().required(),
+    daysPerWeekForFitness: Joi.string().required(),
     involvedInAerobicExercise: Joi.string().required(), // Changed to string
     liftingWeights: Joi.string().required(), // Changed to string
     exerciseTimeCommitment: Joi.string().required(),

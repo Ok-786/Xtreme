@@ -5,39 +5,30 @@ const nutritionAndExerciseHabitsSchema = new Schema({
     clientId: {
         type: Schema.Types.ObjectId,
         ref: 'Client',
-
     },
     currentPhysicalActivityLevel: {
         type: String,
-
     },
     timesEatPerDay: {
-        type: Number,
-
+        type: String, // Changed to String
     },
     currentDietType: {
         type: String,
-
     },
     daysPerWeekForFitness: {
-        type: Number,
-
+        type: String, // Changed to String
     },
     involvedInAerobicExercise: {
         type: String,
-
     },
     liftingWeights: {
         type: String,
-
     },
     exerciseTimeCommitment: {
         type: String,
-
     },
     motivationToGetInShape: {
         type: String,
-
     },
     foodsToAvoid: {
         type: String,
@@ -57,7 +48,6 @@ const nutritionAndExerciseHabitsSchema = new Schema({
     },
     needMedicalClearance: {
         type: String,
-
     },
     healthConditionsPreventingExercise: {
         type: String,
@@ -69,7 +59,6 @@ const nutritionAndExerciseHabitsSchema = new Schema({
     },
     wouldLikeToExercise: {
         type: String,
-
     },
     equipmentForExercising: {
         type: String,

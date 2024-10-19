@@ -5,71 +5,54 @@ const fitnessQuestionsSchema = new Schema({
     clientId: {
         type: Schema.Types.ObjectId,
         ref: 'Client',
-
     },
     currentPhysicalActivityLevel: {
         type: String,
-
     },
     howOftenEngageInPhysicalActivity: {
         type: String,
-
     },
     preferredTypeOfPhysicalActivity: {
         type: String,
-
     },
     daysPerWeekExercise: {
-        type: Number,
-
+        type: String, // Changed to String
     },
     currentDiet: {
         type: String,
-
     },
     howOftenEatUnhealthyFood: {
         type: String,
-
     },
     waterIntakePerDay: {
         type: String,
-
     },
     vitaminsOrSupplements: {
         type: String,
-
     },
     adequateSleepPerNight: {
         type: String,
-
     },
     medicalOrHealthConditions: {
         type: String,
-
     },
     injuriesOrPhysicalLimitations: {
         type: String,
-
     },
     goals: {
         type: String,
-
     },
     idealBodyWeight: {
-        type: Number,
-
+        type: String, // Changed to String
     },
     healthAndFitnessGoals: {
         type: String,
-
     },
     commitmentLevelToGoals: {
         type: String,
-
     },
     currentStressLevel: {
         type: String,
-
     },
     stressManagement: {
         type: String,
@@ -82,7 +65,6 @@ const fitnessQuestionsSchema = new Schema({
     },
     gymAccess: {
         type: String,
-
     },
 }, { timestamps: true });
 

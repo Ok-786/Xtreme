@@ -9,19 +9,15 @@ const demographicsSchema = new Schema({
     gender: {
         type: String,
         enum: ['Male', 'Female', 'Other'],
-
     },
     age: {
-        type: Number,
-
+        type: String, // Changed to String
     },
     height: {
-        type: Number,
-
+        type: String, // Changed to String
     },
     weight: {
-        type: Number,
-
+        type: String, // Changed to String
     },
 }, { timestamps: true });
 
