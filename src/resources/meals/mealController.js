@@ -47,12 +47,12 @@ const mealController = {
     }),
 
     createMeal: asyncHandler(async (req, res) => {
-        const validationResult = mealValidator.create.validate(req.body);
+        const validationResult = mealValidator.createMealValidator.validate(req.body);
         if (validationResult.error) {
             return sendResponse(res, responseStatusCodes.BAD, validationResult.error.details[0].message);
         }
 
-        const meal = await mealServices.create(req.body);
+        const meal = await mealServices.createMealWithRecipes(req.body);
         return sendResponse(res, responseStatusCodes.CREATED, 'Meal created successfully', meal);
     }),
 

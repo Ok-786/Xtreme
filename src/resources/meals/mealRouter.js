@@ -4,7 +4,7 @@ const mealRouter = express.Router();
 
 mealRouter
     .route('/')
-    .post(mealController.createMeal)
+    .post(mealController.createMealWithRecipes)
     .get(mealController.getAllMeals);
 
 mealRouter
