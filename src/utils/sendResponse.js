@@ -1,11 +1,15 @@
 const apiLogServices = require('../resources/apiLog/apiLogServices');
 
 const sendResponse = async (res, statusCode, message, data, logId) => {
-    if (data) {
+    if (data && logId) {
         await apiLogServices.updateResponse(logId, message, data, statusCode);
+    }
+
+
+    if (res) {
         res.status(statusCode).send({ message, data, statusCode });
     } else {
-        res.status(statusCode).send({ message, statusCode });
+        return { message, data, statusCode };
     }
 };
 

@@ -9,7 +9,6 @@ const exerciseSchema = new Schema(
         },
         primaryFocus: {
             type: String,
-            enum: ['Upper Body', 'Lower Body', 'Core', 'Full Body', 'Cardio'],
             required: true,
         },
         movementPattern: {

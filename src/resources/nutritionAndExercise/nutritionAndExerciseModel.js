@@ -10,13 +10,13 @@ const nutritionAndExerciseHabitsSchema = new Schema({
         type: String,
     },
     timesEatPerDay: {
-        type: String, // Changed to String
+        type: String,
     },
     currentDietType: {
         type: String,
     },
     daysPerWeekForFitness: {
-        type: String, // Changed to String
+        type: String,
     },
     involvedInAerobicExercise: {
         type: String,

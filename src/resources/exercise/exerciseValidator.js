@@ -6,10 +6,6 @@ const exerciseValidator = {
         primaryFocus: Joi.string().valid('Upper Body', 'Lower Body', 'Core', 'Full Body', 'Cardio').required(),
         movementPattern: Joi.string().required(),
         equipment: Joi.string().optional(),
-        intensity: Joi.string().required(), // Added intensity as a required field
-        duration: Joi.number().required(), // Added duration as a required field
-        sets: Joi.number().required(), // Added sets as a required field
-        reps: Joi.number().required(), // Added reps as a required field
         videoLink: Joi.string().uri().optional(),
         steps: Joi.array().items(
             Joi.object({

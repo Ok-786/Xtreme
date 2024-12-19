@@ -14,5 +14,6 @@ mealRouter
     .delete(mealController.deleteMeal);
 mealRouter.post('/mealWithRecipes', mealController.createMealWithRecipes);
 
-mealRouter.patch('/:mealId', mealController.updateMealAndRecipes)
+mealRouter.patch('/:mealId', mealController.updateMealAndRecipes);
+
 module.exports = mealRouter;

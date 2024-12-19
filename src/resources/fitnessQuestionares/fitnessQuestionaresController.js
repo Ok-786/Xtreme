@@ -5,6 +5,7 @@ const NutritionAndExerciseHabitsService = require('../nutritionAndExercise/nutri
 const { combinedSchema } = require('./fitnessQuestionaresValidator');
 const sendResponse = require('../../utils/sendResponse');
 const responseStatusCodes = require('../../constants/responseStatusCodes');
+const clientServices = require('../clients/clientService');
 
 const FitnessQuestionsController = {
     create: asyncHandler(async (req, res) => {
@@ -18,7 +19,9 @@ const FitnessQuestionsController = {
         const demographics = await DemographicsService.create(data);
         const fitnessQuestions = await FitnessQuestionsService.createFitnessQuestions(data);
         const nutritionAndExerciseHabits = await NutritionAndExerciseHabitsService.create(data);
-
+        if (demographics && fitnessQuestions && nutritionAndExerciseHabits) {
+            const user = await clientServices.update(data?.clientId, { questionnaires: true })
+        }
         return sendResponse(res, responseStatusCodes.CREATED, 'Data created successfully', {
             demographics,
             fitnessQuestions,

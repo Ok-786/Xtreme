@@ -16,6 +16,9 @@ const workoutPlanSchema = new Schema(
             type: Date,
             required: true,
         },
+        status: {
+            type: String,
+        },
         period: {
             type: String,
             enum: ['Weekly', 'Monthly', 'Daily'],
@@ -26,6 +29,9 @@ const workoutPlanSchema = new Schema(
                 type: Schema.Types.ObjectId,
                 ref: 'Exercise',
                 required: true,
+            },
+            primaryFocus: {
+                type: String,
             },
             intensity: {
                 type: String,

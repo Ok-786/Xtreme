@@ -1,65 +1,66 @@
-// controllers/meetingController.js
 const meetingService = require('./meetingService');
 const meetingValidator = require('./meetingValidator');
-
+const sendResponse = require('../../utils/sendResponse');
+const asyncHandler = require('express-async-handler');
+const MeetingModel = require('./meetingModel');
 
 class MeetingController {
-    async create(req, res) {
-        try {
-            await meetingValidator.create.validateAsync(req.body);
-            const { clientId, adminId, meetingDate, meetingTime, notes } = req.body;
-            const meeting = await meetingService.createMeeting(clientId, adminId, meetingDate, meetingTime, notes);
-            return sendResponse(res, 201, 'Meeting created successfully', meeting);
-        } catch (error) {
-            return sendResponse(res, 400, error.message);
-        }
-    }
+    getUpcomingMeetings = asyncHandler(async (req, res) => {
+        const currentDate = new Date();
 
-    async getByClient(req, res) {
-        try {
-            await meetingValidator.getByClient.validateAsync(req.params);
-            const { clientId } = req.params;
-            const meetings = await meetingService.getMeetingsByClient(clientId);
-            return sendResponse(res, 200, 'Meetings retrieved successfully', meetings);
-        } catch (error) {
-            return sendResponse(res, 400, error.message);
-        }
-    }
+        const upcomingMeetings = await MeetingModel.find({
+            meetingDate: { $gte: currentDate },
+            status: { $in: ['Pending', 'Confirmed'] }
+        })
+            .populate('clientId', 'name')
+            .lean();
 
-    async getByAdmin(req, res) {
-        try {
-            await meetingValidator.getByAdmin.validateAsync(req.params);
-            const { adminId } = req.params;
-            const meetings = await meetingService.getMeetingsByAdmin(adminId);
-            return sendResponse(res, 200, 'Meetings retrieved successfully', meetings);
-        } catch (error) {
-            return sendResponse(res, 400, error.message);
-        }
-    }
+        const totalCount = upcomingMeetings.length;
 
-    async updateStatus(req, res) {
-        try {
-            await meetingValidator.updateStatus.validateAsync(req.body);
-            const { meetingId } = req.params;
-            const { status } = req.body;
-            const updatedMeeting = await meetingService.updateMeetingStatus(meetingId, status);
-            return sendResponse(res, 200, 'Meeting status updated successfully', updatedMeeting);
-        } catch (error) {
-            return sendResponse(res, 400, error.message);
-        }
-    }
+        return sendResponse(
+            res,
+            200,
+            'All upcoming meetings retrieved successfully',
+            { totalCount, meetings: upcomingMeetings }
+        );
+    });
 
-    async delete(req, res) {
-        try {
-            await meetingValidator.delete.validateAsync(req.params);
-            const { meetingId } = req.params;
-            await meetingService.deleteMeeting(meetingId);
-            return sendResponse(res, 200, 'Meeting deleted successfully');
-        } catch (error) {
-            return sendResponse(res, 400, error.message);
-        }
-    }
+
+    create = asyncHandler(async (req, res) => {
+        await meetingValidator.create.validateAsync(req.body);
+        const { clientId, meetingDate, meetingTime, notes } = req.body;
+        const meeting = await meetingService.createMeeting(clientId, meetingDate, meetingTime, notes);
+        return sendResponse(res, 201, 'Meeting created successfully', meeting);
+    });
+
+    getByClient = asyncHandler(async (req, res) => {
+        await meetingValidator.getByClient.validateAsync(req.params);
+        const { clientId } = req.params;
+        const meetings = await meetingService.getMeetingsByClient(clientId);
+        return sendResponse(res, 200, 'Meetings retrieved successfully', meetings);
+    });
+
+    getByAdmin = asyncHandler(async (req, res) => {
+        await meetingValidator.getByAdmin.validateAsync(req.params);
+        const { adminId } = req.params;
+        const meetings = await meetingService.getMeetingsByAdmin(adminId);
+        return sendResponse(res, 200, 'Meetings retrieved successfully', meetings);
+    });
+
+    updateStatus = asyncHandler(async (req, res) => {
+        await meetingValidator.updateStatus.validateAsync(req.body);
+        const { meetingId } = req.params;
+        const { status } = req.body;
+        const updatedMeeting = await meetingService.updateMeetingStatus(meetingId, status);
+        return sendResponse(res, 200, 'Meeting status updated successfully', updatedMeeting);
+    });
+
+    delete = asyncHandler(async (req, res) => {
+        await meetingValidator.delete.validateAsync(req.params);
+        const { meetingId } = req.params;
+        await meetingService.deleteMeeting(meetingId);
+        return sendResponse(res, 200, 'Meeting deleted successfully');
+    });
 }
-
 
 module.exports = new MeetingController();

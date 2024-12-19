@@ -1,23 +1,40 @@
-// src/resources/messages/messageModel.js
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const messageSchema = new Schema(
     {
-        clientId: {
+        senderId: {
             type: Schema.Types.ObjectId,
-            ref: 'Client',
             required: true,
+            refPath: 'senderModel',
         },
-        adminId: {
+        senderModel: {
+            type: String,
+            required: true,
+            enum: ['AdminUser', 'Client'],
+        },
+        receiverId: {
             type: Schema.Types.ObjectId,
-            ref: 'AdminUser',
+            refPath: 'receiverModel',
         },
-        content: {
+        receiverModel: {
+            type: String,
+            required: true,
+            enum: ['AdminUser', 'Client'],
+        },
+        message: {
             type: String,
             required: true,
         },
-        isAdminReply: {
+        timestamp: {
+            type: Date,
+            default: Date.now,
+        },
+        isSenderSeen: {
+            type: Boolean,
+            default: false,
+        },
+        isReceiverSeen: {
             type: Boolean,
             default: false,
         },

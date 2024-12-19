@@ -11,7 +11,6 @@ const clientSchema = new Schema(
             type: String,
             required: true,
             unique: true,
-            index: true,
         },
         password: {
             type: String,
@@ -21,9 +20,9 @@ const clientSchema = new Schema(
             type: String,
             enum: ['Male', 'Female', 'Other'],
         },
-        status: {
+        isActive: {
             type: Boolean,
-            default: true, // Active by default
+            default: true,
         },
         address: {
             type: String,
@@ -31,22 +30,75 @@ const clientSchema = new Schema(
         phone: {
             type: String,
             required: true,
-            unique: true,
-            index: true,
         },
         profilePicture: {
-            type: String, // URL or file path for the profile picture
+            type: String,
         },
         createdBy: {
             type: Schema.Types.ObjectId,
             ref: 'AdminUser',
         },
+        questionnaires: {
+            type: Boolean,
+            default: false,
+        },
+        subscriptionId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Subscription',
+        },
+        subscriptionStatus: {
+            type: String,
+            enum: ['Bought', 'Not Bought'],
+            default: 'Not Bought',
+        },
+        fcmToken: {
+            type: String,
+        },
+        workoutPlanStatus: {
+            type: String,
+            enum: ['Not Requested', 'Requested', 'Assigned', 'Completed'],
+            default: 'Not Requested',
+        },
+        workoutPlanStatusStartDate: {
+            type: Date,
+
+        },
+        workoutPlanStatusEndDate: {
+            type: Date,
+
+        },
+        mealPlanStatus: {
+            type: String,
+            enum: ['Not Requested', 'Requested', 'Assigned', 'Completed'],
+            default: 'Not Requested',
+        },
+        mealPlanStatusStartDate: {
+            type: Date,
+
+        },
+        mealPlanStatusEndDate: {
+            type: Date,
+        },
+        status: {
+            type: String,
+            enum: ['Active', 'Expired'],
+            default: 'Active',
+        },
+        lastLogin: {
+            type: Date,
+        },
+        otp: {
+            type: String,
+        },
+        otpExpiry: {
+            type: String,
+        }
     },
     { timestamps: true }
 );
 
 clientSchema.pre('save', async function (next) {
-    // You can add any pre-save validation or logic here if needed
+
 
     next();
 });

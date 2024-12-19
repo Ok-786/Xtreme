@@ -5,17 +5,34 @@ const {
     getAllClients,
     getClientById,
     deleteClient,
+    requestPlan,
+    dashboard,
+    clientInsightsController,
+    changePassword,
+    sendOTP,
+    validateOTP,
+    changePasswordByEmail
 } = require('./clientController');
 
 const clientRouter = express.Router();
 
+
+clientRouter.post('/request-plan', requestPlan);
+clientRouter.put('/changePassword', changePassword);
+clientRouter.get('/dashboard/:id', dashboard);
+clientRouter.get('/getInsights', clientInsightsController);
+clientRouter.post('/validateOTP', validateOTP);
+clientRouter.post('/forgotPassword', sendOTP);
+clientRouter.post('/resetPassword', changePasswordByEmail)
+
 clientRouter.route('/')
-    .post(createClient) // Create a new client
-    .get(getAllClients) // Get all clients
-    .put(updateClient); // Update a client
+    .post(createClient)
+    .get(getAllClients)
+    .put(updateClient);
 
 clientRouter.route('/:id')
-    .get(getClientById) // Get client by ID
-    .delete(deleteClient); // Delete client by ID
+    .get(getClientById)
+    .delete(deleteClient);
+
 
 module.exports = clientRouter;

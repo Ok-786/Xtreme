@@ -7,36 +7,36 @@ const cryptkey = CryptoJS.enc.Utf8.parse(process.env.CRYPTKEY);
 
 const cryptiv = CryptoJS.enc.Utf8.parse(process.env.CRYPTIV);
 function encryptData(obj) {
-  // Convert the object to a JSON string
-  const jsonString = JSON.stringify(obj);
+    // Convert the object to a JSON string
+    const jsonString = JSON.stringify(obj);
 
-  // Encrypt the JSON string using CryptoJS
-  const encrypted = CryptoJS.AES.encrypt(jsonString, cryptkey, {
-    iv: cryptiv,
-    mode: CryptoJS.mode.CTR,
-    padding: CryptoJS.pad.Pkcs7,
-  });
+    // Encrypt the JSON string using CryptoJS
+    const encrypted = CryptoJS.AES.encrypt(jsonString, cryptkey, {
+        iv: cryptiv,
+        mode: CryptoJS.mode.CTR,
+        padding: CryptoJS.pad.Pkcs7,
+    });
 
-  // Return the cipher as a base64-encoded string
-  const cipher = encrypted.toString() || '';
-  return { cipher };
+    // Return the cipher as a base64-encoded string
+    const cipher = encrypted.toString() || '';
+    return { cipher };
 }
 
 // Function to decrypt a base64-encoded cipher to an object
 function decryptData(cipherText) {
-  // Decrypt the cipher using CryptoJS
-  const decrypted = CryptoJS.AES.decrypt(cipherText, cryptkey, {
-    iv: cryptiv,
-    mode: CryptoJS.mode.CTR,
-    padding: CryptoJS.pad.Pkcs7,
-  });
+    // Decrypt the cipher using CryptoJS
+    const decrypted = CryptoJS.AES.decrypt(cipherText, cryptkey, {
+        iv: cryptiv,
+        mode: CryptoJS.mode.CTR,
+        padding: CryptoJS.pad.Pkcs7,
+    });
 
-  // Convert the decrypted WordArray to a JSON string and then to an object
-  const jsonString = decrypted.toString(CryptoJS.enc.Utf8);
-  if (jsonString) {
-    return JSON.parse(jsonString);
-  }
-  return null;
+    // Convert the decrypted WordArray to a JSON string and then to an object
+    const jsonString = decrypted.toString(CryptoJS.enc.Utf8);
+    if (jsonString) {
+        return JSON.parse(jsonString);
+    }
+    return null;
 }
 
 // const encryptData = (data) => {

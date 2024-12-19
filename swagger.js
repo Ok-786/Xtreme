@@ -34,7 +34,7 @@ const baseUrl = 'http://localhost:3030';
 // Delay the console output by 3 seconds
 setTimeout(() => {
     console.log(
-        clc.blue(`
+        clc.red(`
   -----------------------------------------
   `)
     );
@@ -44,7 +44,7 @@ setTimeout(() => {
         clc.cyan(`  Visit: ${clc.underline(baseUrl + '/api-docs')} to view the documentation`)
     );
     console.log(
-        clc.blue(`
+        clc.red(`
   -----------------------------------------
   `)
     );

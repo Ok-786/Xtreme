@@ -43,8 +43,17 @@ const adminUserSchema = new Schema(
         },
         profilePicture: {
             type: String,
+        },
+        fcmToken: {
+            type: String,
+        }, otp: {
+            type: String,
+        },
+        otpExpiry: {
+            type: String,
         }
     },
+
     { timestamps: true }
 );
 
@@ -74,7 +83,6 @@ adminUserSchema.pre('findOneAndUpdate', async function (next) {
     next();
 });
 
-// Role validation before save
 adminUserSchema.pre('save', async function (next) {
     const adminUserCount = await adminUserModel.countDocuments();
     const role = await adminRoleServices.getAdminRoleById(this.role);
@@ -82,7 +90,7 @@ adminUserSchema.pre('save', async function (next) {
     if (!role) {
         throw new Error('Select another role');
     } else if (adminUserCount === 0) {
-        // Allow the first admin user to be saved without role restriction
+
         next();
         return;
     } else if (role.name === 'superAdmin') {

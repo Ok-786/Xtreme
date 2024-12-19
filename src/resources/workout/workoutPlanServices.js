@@ -7,20 +7,44 @@ const workoutPlanServices = {
     },
     getAllByClient: async (clientId, date) => {
         try {
-            let matchStage;
-            if (clientId) {
-                matchStage = { clientId: new mongoose.Types.ObjectId(clientId) };
-            } else if (date) {
-                matchStage = { date: date };
+            let matchStage = {};
 
+            // Check for clientId and date together
+            if (clientId && date) {
+                const startDate = new Date(date);
+                const endDate = new Date(date);
+                endDate.setHours(23, 59, 59, 999);
+
+                matchStage = {
+                    clientId: new mongoose.Types.ObjectId(clientId),
+                    date: {
+                        $gte: startDate,
+                        $lte: endDate
+                    }
+                };
+            }
+            // Only clientId
+            else if (clientId) {
+                matchStage = { clientId: new mongoose.Types.ObjectId(clientId) };
+            }
+            // Only date
+            else if (date) {
+                const startDate = new Date(date);
+                const endDate = new Date(date);
+                endDate.setHours(23, 59, 59, 999);
+
+                matchStage = {
+                    date: {
+                        $gte: startDate,
+                        $lte: endDate
+                    }
+                };
             } else {
                 throw new Error('Either clientId or date must be provided');
             }
 
             const workoutPlans = await workoutPlanModel.aggregate([
-                {
-                    $match: matchStage
-                },
+                { $match: matchStage },
                 {
                     $lookup: {
                         from: 'exercises',
@@ -59,6 +83,34 @@ const workoutPlanServices = {
                         period: 1,
                         startDate: 1,
                         endDate: 1,
+                        status: 1,
+                        exercises: {
+                            $map: {
+                                input: '$exercises',
+                                as: 'exercise',
+                                in: {
+                                    exerciseId: '$$exercise.exerciseId',
+                                    intensity: '$$exercise.intensity',
+                                    duration: '$$exercise.duration',
+                                    sets: '$$exercise.sets',
+                                    reps: '$$exercise.reps',
+                                    primaryFocus: '$$exercise.primaryFocus',
+                                    exerciseDetails: {
+                                        $arrayElemAt: [
+                                            {
+                                                $filter: {
+                                                    input: '$exerciseDetails',
+                                                    as: 'detail',
+                                                    cond: { $eq: ['$$detail._id', '$$exercise.exerciseId'] }
+                                                }
+                                            },
+                                            0
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+
                         createdBy: 1,
                         adminName: {
                             $concat: [
@@ -66,31 +118,6 @@ const workoutPlanServices = {
                                 ' ',
                                 { $ifNull: ['$adminDetails.lastName', ''] }
                             ]
-                        },
-                        exerciseDetails: {
-                            $map: {
-                                input: '$exerciseDetails',
-                                as: 'exercise',
-                                in: {
-                                    _id: '$$exercise._id',
-                                    name: '$$exercise.name',
-                                    primaryFocus: '$$exercise.primaryFocus',
-                                    movementPattern: '$$exercise.movementPattern',
-                                    equipment: '$$exercise.equipment',
-                                    videoLink: '$$exercise.videoLink',
-                                    steps: {
-                                        $map: {
-                                            input: '$$exercise.steps',
-                                            as: 'step',
-                                            in: {
-                                                stepNumber: '$$step.stepNumber',
-                                                instruction: '$$step.instruction'
-                                            }
-                                        }
-                                    },
-                                    picture: '$$exercise.picture'
-                                }
-                            }
                         },
                         mealDetails: {
                             $map: {
@@ -106,16 +133,11 @@ const workoutPlanServices = {
                 }
             ]);
 
-            // console.log('Workout Plans:', workoutPlans);
-            //            console.log('Admin Details:', workoutPlans.map(plan => plan.adminDetails));
-            //          console.log('Exercises:', workoutPlans.map(plan => plan.exercises));
-
             return workoutPlans;
         } catch (error) {
             throw new Error(`Error fetching workout plans: ${error.message}`);
         }
     }
-
 
     ,
     update: async (id, data) => {
@@ -178,6 +200,7 @@ const workoutPlanServices = {
                         sets: 1,
                         reps: 1,
                         createdBy: 1,
+                        status: 1,
                         adminName: {
                             $concat: [
                                 { $ifNull: ['$adminDetails.firstName', ''] },

@@ -8,7 +8,7 @@ const mealSchema = new Schema({
     },
     mealType: {
         type: String,
-        enum: ['Macro-Based', 'Calorie-Based', 'Custom'],
+        // enum: ['Macro-Based', 'Calorie-Based', 'Custom'],
         required: true,
     },
     totalCalories: {

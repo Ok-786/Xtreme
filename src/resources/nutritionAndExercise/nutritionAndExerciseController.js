@@ -1,7 +1,6 @@
 const NutritionAndExerciseHabitsService = require('./nutritionAndExerciseServices');
 
 class NutritionAndExerciseHabitsController {
-    // Create new Nutrition & Exercise Habits entry
     async create(req, res) {
         try {
             const data = req.body;
@@ -12,7 +11,6 @@ class NutritionAndExerciseHabitsController {
         }
     }
 
-    // Get Nutrition & Exercise Habits by clientId
     async getByClientId(req, res) {
         try {
             const { clientId } = req.params;
@@ -26,7 +24,6 @@ class NutritionAndExerciseHabitsController {
         }
     }
 
-    // Update Nutrition & Exercise Habits by clientId
     async update(req, res) {
         try {
             const { clientId } = req.params;
@@ -41,7 +38,6 @@ class NutritionAndExerciseHabitsController {
         }
     }
 
-    // Delete Nutrition & Exercise Habits by clientId
     async delete(req, res) {
         try {
             const { clientId } = req.params;

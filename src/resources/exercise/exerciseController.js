@@ -3,6 +3,7 @@ const exerciseServices = require('./exerciseService');
 const sendResponse = require('../../utils/sendResponse');
 const exerciseValidator = require('./exerciseValidator');
 const responseStatusCodes = require('../../constants/responseStatusCodes');
+const uploadFile = require("../../utils/uploadFile")
 
 const exerciseController = {
     createExercise: asyncHandler(async (req, res) => {

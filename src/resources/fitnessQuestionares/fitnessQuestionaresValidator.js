@@ -38,7 +38,7 @@ const createFitnessQuestionsValidator = (req, res, next) => {
 const combinedSchema = Joi.object({
     // Demographics validation
     clientId: Joi.string().length(24).required(),
-    gender: Joi.string().valid('Male', 'Female', 'Other').required(),
+    gender: Joi.string().required(),
     age: Joi.string().required(),
     height: Joi.string().required(),
     weight: Joi.string().required(),

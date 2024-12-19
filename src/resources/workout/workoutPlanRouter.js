@@ -2,6 +2,9 @@ const express = require('express');
 const workoutPlanController = require('./workoutPlanController');
 const workoutPlanRouter = express.Router();
 
+workoutPlanRouter.post('/gpt', workoutPlanController.generateWorkoutPlan)
+workoutPlanRouter.post('/saveGpt', workoutPlanController.saveGPTWorkoutPlan)
+workoutPlanRouter.post('/status', workoutPlanController.updateWorkoutPlanStatus);
 workoutPlanRouter
     .route('/')
     .post(workoutPlanController.createWorkoutPlan);

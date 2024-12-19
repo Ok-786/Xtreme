@@ -1,21 +1,19 @@
 // routes/meetingRoutes.js
 const express = require('express');
-const router = express.Router();
+const meetingRouter = express.Router();
 const meetingController = require('./meetingController');
 
-// Route to create a meeting request
-router.post('/', meetingController.create);
 
-// Route to get  by client ID
-router.get('/client/:clientId', meetingController.getByClient);
+meetingRouter.post('/', meetingController.create);
 
-// Route to get  by admin ID
-router.get('/admin/:adminId', meetingController.getByAdmin);
+meetingRouter.get('/client/:clientId', meetingController.getByClient);
 
-// Route to update meeting status
-router.patch('/:meetingId/status', meetingController.updateStatus);
+meetingRouter.get('/admin/:adminId', meetingController.getByAdmin);
 
-// Route to delete a meeting
-router.delete('/:meetingId', meetingController.delete);
+meetingRouter.get('/upComingMeeting', meetingController.getUpcomingMeetings);
 
-module.exports = router;
+meetingRouter.put('/:meetingId', meetingController.updateStatus);
+
+meetingRouter.delete('/:meetingId', meetingController.delete);
+
+module.exports = meetingRouter;

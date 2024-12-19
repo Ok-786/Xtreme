@@ -3,9 +3,11 @@ const adminUserServices = require('./adminUserServices');
 const sendResponse = require('../../utils/sendResponse');
 const adminUserValidator = require('./adminUserValidator');
 const responseStatusCodes = require('../../constants/responseStatusCodes');
-
+const clientModel = require('../clients/clientModel')
+const adminUserModel = require('./adminUserModel');
 const adminUserController = {
     createAdminUser: asyncHandler(async (req, res) => {
+
         const validationResult = adminUserValidator.create.validate(req.body);
         if (validationResult.error) {
             return await sendResponse(
@@ -16,10 +18,35 @@ const adminUserController = {
                 req.logId
             );
         }
-        if (req.body.profilePicture !== null && req.body.profilePicture !== '') {
-            const mealImage = await uploadFile(req.body.profilePicture);
-            req.body.profilePicture = mealImage;
+
+        const { email, profilePicture } = req.body;
+
+        const existingAdminUser = await adminUserModel.findOne({ email });
+        if (existingAdminUser) {
+            return await sendResponse(
+                res,
+                responseStatusCodes.BAD,
+                'Email already exists in Admin Users',
+                null,
+                req.logId
+            );
         }
+        const existingClient = await clientModel.findOne({ email });
+        if (existingClient) {
+            return await sendResponse(
+                res,
+                responseStatusCodes.BAD,
+                'Email already exists in Clients',
+                null,
+                req.logId
+            );
+        }
+
+        if (profilePicture) {
+            const uploadedProfilePicture = await uploadFile(profilePicture);
+            req.body.profilePicture = uploadedProfilePicture;
+        }
+
         const adminUser = await adminUserServices.create(req.body);
         return await sendResponse(
             res,

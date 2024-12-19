@@ -16,7 +16,7 @@ const fitnessQuestionsSchema = new Schema({
         type: String,
     },
     daysPerWeekExercise: {
-        type: String, // Changed to String
+        type: String,
     },
     currentDiet: {
         type: String,
@@ -43,7 +43,7 @@ const fitnessQuestionsSchema = new Schema({
         type: String,
     },
     idealBodyWeight: {
-        type: String, // Changed to String
+        type: String,
     },
     healthAndFitnessGoals: {
         type: String,
